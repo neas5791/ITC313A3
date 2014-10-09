@@ -1,0 +1,1 @@
+SELECT StudentID FROM Student_marks_ITC000;

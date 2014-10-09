@@ -9,6 +9,6 @@ CREATE TABLE Student_marks_ITC000(
 		Assignment3	integer,
 		Final		integer,
 	PRIMARY KEY (StudentID)
-)ENGINE=InnoDB AUTO_INCREMENT=1001;/* CREATES THE STUDENT TABLE AND SETS PK TO START AT 1000 */
-INSERT INTO Student_marks_ITC000 (Name, Assignment1, Assignment2, Assignment3, Final) values ('Janet', 80,100,90,85);/* ADDS RECORD TO TABLE */
-INSERT INTO Student_marks_ITC000 (Name, Assignment1, Assignment2, Assignment3, Final) values ('Daniel', 60,70,75,90);/* ADDS RECORD TO TABLE */
+)ENGINE=InnoDB AUTO_INCREMENT=1001;
+INSERT INTO Student_marks_ITC000 (Name, Assignment1, Assignment2, Assignment3, Final) values ('Janet', 80,100,90,85);
+INSERT INTO Student_marks_ITC000 (Name, Assignment1, Assignment2, Assignment3, Final) values ('Daniel', 60,70,75,90);

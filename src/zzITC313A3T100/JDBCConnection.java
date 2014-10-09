@@ -1,4 +1,4 @@
-package ITC313A3T1;
+package zzITC313A3T100;
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.*;
@@ -76,7 +76,7 @@ public class JDBCConnection {
 	    }
 	}
 	
-	public boolean insertData(String sql) {
+	public String insertData(String sql) {
 	    PreparedStatement s = null;
 	    try {
 	    	
@@ -94,12 +94,12 @@ public class JDBCConnection {
 	            try {
 	                connection.close();
 	                System.out.println ("Database connection terminated");
-	                return false;
+	                return e.getMessage();
 	            }
-	            catch (Exception se) { return false; }
+	            catch (Exception se) { return se.getMessage(); }
 	        }
 	    }
-	    return true;
+	    return null;
 	}
 
 	public ResultSet query(String sql)
@@ -121,4 +121,11 @@ public class JDBCConnection {
 	    }
 	}
 
+	public boolean isConnected(){
+		try {
+			return !connection.isClosed();
+		} catch (SQLException e) {
+			return false;
+		}
+	}
 }

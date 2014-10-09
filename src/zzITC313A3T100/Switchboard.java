@@ -1,6 +1,7 @@
-package ITC313A3T1;
+package zzITC313A3T100;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -16,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeListener;
 
 @SuppressWarnings("serial")
 public class Switchboard extends JFrame{
@@ -34,13 +36,13 @@ public class Switchboard extends JFrame{
 	private class uiPanel extends JPanel{
 		private uiPanel(){
 			
-			JTabbedPane tabs = new JTabbedPane();
+
 			
 			// Setup the panels to be added to the TabbedPane
 			tab1 = new Create();
 			tab2 = new Insert();
 			tab3 = new Search();
-			tab4 =new Calculate();
+			tab4 = new Calculate();
 
 			// add the panels
 			tabs.addTab("Create", tab1);
@@ -52,21 +54,17 @@ public class Switchboard extends JFrame{
 	}
 	
 	private class Create extends JPanel{
-		private String text = "annan";
-		private JTextArea statement = new JTextArea(text);
-		
+		private JTextArea statement = new JTextArea(10,30);
+		private JScrollPane content = new JScrollPane(statement);
 		private Create(){
 			this.setLayout(new BorderLayout());
 
 			JTextArea statement = new JTextArea();
-			statement.setText("This is some text");
 			statement.setLineWrap(true);			
-			
-			display = new JScrollPane(statement);
-			display.setPreferredSize(sqlDimension);
-			display.setToolTipText("SQL Statement");
-			this.add(display, BorderLayout.CENTER);
-			
+			statement.setPreferredSize(dimension);
+
+			content.setPreferredSize(dimension);
+			this.add(content, BorderLayout.CENTER);
 			
 			create = new JButton("Create");
 			create.setActionCommand("CREATE");
@@ -76,33 +74,40 @@ public class Switchboard extends JFrame{
 			this.add(create, BorderLayout.SOUTH);
 		}
 	
-		public void setText(String sql){
-			statement.append(sql);
+		public void setText(String str){
+			statement.setText(str);
+			statement.setBackground(Color.lightGray);
+			statement.setEditable(false);
+			statement.setCaretPosition(0);
 			this.revalidate();
-//			.setText(text.concat(sql));
 		}
+		
+		public String getText() { return statement.getText(); }
 	}
 	
-	private class Insert extends JPanel{
+	
+	public class Insert extends JPanel{
 		private String sql;
+		private JComboBox studentID = new JComboBox();
 		private JTextField name = new JTextField();
 		private JTextField assignment1 = new JTextField();
 		private JTextField assignment2 = new JTextField();
 		private JTextField assignment3 = new JTextField();
 		private JTextField fin = new JTextField();
-		private JTextArea result = new JTextArea();
+		private JTextArea statement = new JTextArea(10,30);
+		private JScrollPane content = new JScrollPane(statement);
 		
 		private Insert(){
-			
 			JPanel fields = new JPanel(new GridLayout(0,6));
 			// Loop through naming the labels
 			for (String s: FIELDS){
 				JLabel b = new JLabel(s, JLabel.CENTER);
-				b.setFont(new Font("Tahoma", Font.PLAIN, 12));
+//				b.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				fields.add(b);
 			}
 			
-			studentID = new JComboBox<Integer>();
+//			studentID = new JComboBox();
+			studentID.setEditable(true);
 			studentID.setPreferredSize(studentID.getPreferredSize());
 			
 			// Add textFields and combo
@@ -119,25 +124,53 @@ public class Switchboard extends JFrame{
 
 			fields.add(insert);
 			
-			result = new JTextArea();
-			result.setLineWrap(true);			
-			
-			display = new JScrollPane(result);
-			display.setPreferredSize(sqlDimension);
+			statement.setLineWrap(true);			
+			statement.setPreferredSize(dimension);
+
+			content.setPreferredSize(dimension);
 			
 			// Set up text field for displaying SQL statements
 			JPanel frame = new JPanel(new BorderLayout());			
 
-			frame.add(display, BorderLayout.SOUTH);
+			frame.add(content, BorderLayout.SOUTH);
 			frame.add(fields, BorderLayout.CENTER);
 			
 			this.add(frame);
 		}
+		
+		public void setText(String str){
+			statement.setText(str);
+			statement.setBackground(Color.lightGray);
+			statement.setEditable(false);
+			statement.setCaretPosition(0);
+			this.revalidate();
+		}
+		
+		public String getText() { return statement.getText(); }
+	
+		public void setStudentID(String list){
+			String temp[] = list.split(",");
+			//studentID.remove(studentID.getComponentCount()-1);
+
+			for (int i = 0; i < temp.length; i++){
+				studentID.addItem(temp[i]);
+			}
+			studentID.addItem("Add new");
+		}
+	
+		public String getStudentID() 	{  return String.valueOf(studentID.getSelectedItem()); }
+		public String getName() 		{  return name.getText();  }
+		public String getAss1() 		{  return assignment1.getText();  }
+		public String getAss2() 		{  return assignment2.getText();  }
+		public String getAss3() 		{  return assignment3.getText();  }
+		public String getFinal()		{  return fin.getText();  }	
 	}
+	
 	
 	private class Search extends JPanel{
 		private String sql = "";
-		
+
+		private JComboBox studentID = new JComboBox();
 		private JTextField name = new JTextField();
 		private JTextField assignment1 = new JTextField();
 		private JTextField assignment2 = new JTextField();
@@ -154,7 +187,7 @@ public class Switchboard extends JFrame{
 				fields.add(b);
 			}
 			
-			studentID = new JComboBox<Integer>();
+
 			studentID.setPreferredSize(studentID.getPreferredSize());
 			
 			// Add textFields and combo
@@ -174,13 +207,13 @@ public class Switchboard extends JFrame{
 			result = new JTextArea();
 			result.setLineWrap(true);			
 			
-			display = new JScrollPane(result);
-			display.setPreferredSize(sqlDimension);
+//			display = new JScrollPane(result);
+//			display.setPreferredSize(sqlDimension);
 			
 			// Set up text field for displaying SQL statements
 			JPanel frame = new JPanel(new BorderLayout());			
 
-			frame.add(display, BorderLayout.SOUTH);
+//			frame.add(display, BorderLayout.SOUTH);
 			frame.add(fields, BorderLayout.CENTER);
 			
 			this.add(frame);
@@ -193,16 +226,16 @@ public class Switchboard extends JFrame{
 	
 	private class Calculate extends JPanel{
 		private JTextArea result = new JTextArea();
-		
+		private JComboBox studentID = new JComboBox();
 		private Calculate(){
 			this.setLayout(new BorderLayout());
 
 			result = new JTextArea();
 			result.setLineWrap(true);			
 			
-			display = new JScrollPane(result);
-			display.setPreferredSize(sqlDimension);
-			this.add(display, BorderLayout.CENTER);
+//			display = new JScrollPane(result);
+//			display.setPreferredSize(sqlDimension);
+//			this.add(display, BorderLayout.CENTER);
 
 			JPanel ui = new JPanel(new FlowLayout());
 			
@@ -210,7 +243,6 @@ public class Switchboard extends JFrame{
 			calculate .setActionCommand("CALCULATE");
 			calculate .setPreferredSize(calculate .getPreferredSize());
 
-			studentID = new JComboBox<Integer>();
 			studentID.setPreferredSize(calculate.getPreferredSize());
 			
 			ui.add(studentID);
@@ -237,22 +269,39 @@ public class Switchboard extends JFrame{
 	public void calculateListener (ActionListener calculateStuff){
 		calculate.addActionListener(calculateStuff);
 	}
-
-	public void setText(String line, int dest){
-		switch(dest){
-		case 1:
+	public void tabChangeListener (ChangeListener tabChanged){
+		tabs.addChangeListener(tabChanged);
+	}
+	
+	public void setText(String line, String tab){
+		switch(tab){
+		case "CREATE":
 			// enter test into the Create result textPane tab1
 			tab1.setText(line);
 			return;
-		case 2:
-		case 3:
-		case 4:
+		case "INSERT":
+		case "SEARCH":
+		case "CALCULATE":
+		case "STUDENT":
+			tab2.setStudentID(line);
 		default:
 			return;
 		}	
 	}
 	
+	public String getText(String tab){
+		switch (tab){
+		case "CREATE":
+			return tab1.getText();
+		default:
+			return null;
+		}
+	}
 	
+	
+	/* ************************************************************************************ */
+	/* BELOW HERE IS THE CLASS ATTRIBUTES ************************************************* */
+	private JTabbedPane tabs = new JTabbedPane();	
 	private String[] FIELDS = {"Student ID", "Name", "Assignment 1", "Assignment 2", "Assignment 3", "Final"};
 	
 	/* GUI Controls */
@@ -264,14 +313,11 @@ public class Switchboard extends JFrame{
 	private JButton search;
 	@SuppressWarnings("unused")
 	private JButton calculate;
-	private JComboBox<Integer> studentID;;
+//	private JComboBox<Integer> studentID;
 	@SuppressWarnings("unused")
 	private JLabel feedback;
 	
-	private JScrollPane display;
-//	private JTextArea result;
-	
-	private Dimension sqlDimension= new Dimension(600,150);
+	private Dimension dimension= new Dimension(800,600);
 
 	private Create tab1;
 	private Insert tab2;
