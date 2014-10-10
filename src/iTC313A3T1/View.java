@@ -38,8 +38,9 @@ public class View extends JFrame{
 
 	private JButton clear = new JButton("Clear");
 	private JButton execute = new JButton();
-
-	private JComboBox<String> studentID = new JComboBox<String>();
+	// if compiling under jre1.7 need to <string> t declaration
+	// if you do this the program wll not compile under jre1.6 :(
+	private JComboBox studentID = new JComboBox();
 	private JTextField name = new JTextField();
 	private JTextField assignment1 = new JTextField();
 	private JTextField assignment2 = new JTextField();

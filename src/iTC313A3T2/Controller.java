@@ -3,21 +3,19 @@ package iTC313A3T2;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.*;
 
-import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
+@SuppressWarnings("serial")
 public class Controller extends JFrame{
 	private List<View> theCars;
 	private List<Thread> theThreads;
@@ -76,7 +74,7 @@ public class Controller extends JFrame{
 
 	private class Instructions extends JPanel{
 		private Instructions(){
-			Dimension area = new Dimension(175 * theCars.size(),150);
+			Dimension area = new Dimension(190 * theCars.size(),150);
 			JTextArea text = new JTextArea();
 			text.setPreferredSize(area);
 			text.setLineWrap(true);
@@ -140,6 +138,7 @@ public class Controller extends JFrame{
 		
 	}
 	
+	@SuppressWarnings("unused")
 	private static void setToolTipRecursively(JComponent c, String text) {
 
 	    c.setToolTipText(text);

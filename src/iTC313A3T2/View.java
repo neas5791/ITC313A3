@@ -22,7 +22,6 @@ public class View extends JPanel implements Runnable{
 //				System.out.println(name);
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -77,7 +76,6 @@ public class View extends JPanel implements Runnable{
 		try {
 			Thread.sleep(10);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -98,7 +96,6 @@ public class View extends JPanel implements Runnable{
 			this.position = position;
 	}
 	
-	@SuppressWarnings("serial")
 	private class SpeedComponent extends JPanel{
 
 		protected void paintComponent(Graphics g){
