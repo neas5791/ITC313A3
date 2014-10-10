@@ -26,37 +26,28 @@ public class Controller extends JFrame{
 	public Controller(){
 		this.setTitle("Assignment 3 - Task 2 The Wacky Races ");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(950,150);
 		init();
 		
 		this.addKeyListener(new MyKeyListener());
 		this.setFocusable(true);
+		this.pack();
 		this.setVisible(true);
 		this.setLocationRelativeTo(null);
-
 	}
 
 	private void init() {
 		theCars = new LinkedList<View>();
 		theThreads = new LinkedList<Thread>();
-	
+		dimension = new Dimension(175,150);
 		// Creates four objects
 		for (int i = 0; i < 4; i++){
 			theCars.add(new View(i));
 		}
-
-		// Sets the layout and size based on number of objects
-//        JPanel main = new JPanel(new BorderLayout());
-//        JPanel body = new JPanel(new GridLayout(0, theCars.size()));
-//        dimension = new Dimension(175 * theCars.size(),150);
-//        body.setSize(dimension);
-//        Instructions instruction = new Instructions();
-        // haven't finished the above layout stuff
-//        
-		// Sets the layout and size based on number of objects
-		this.setLayout(new GridLayout(0, theCars.size()));
-		this.setSize(175 * theCars.size(),150);
 		
+		this.setLayout(new BorderLayout());
+		// Sets the layout and size based on number of objects
+		JPanel body = new JPanel(new GridLayout(0, theCars.size()));
+       
 
 		Stack<String> s = new Stack<String>();
 		
@@ -71,13 +62,12 @@ public class Controller extends JFrame{
 			
 			// Set up Panels
 			v.setName(s.pop());
-			this.add(v);
+			v.setPreferredSize(dimension);
+			body.add(v);
 		}
-		
-//		main.add(body, BorderLayout.CENTER);
-//		main.add(instruction, BorderLayout.SOUTH);
-//		this.add(main);
-//		
+
+		this.add(body, BorderLayout.CENTER);
+		this.add(new Instructions(), BorderLayout.SOUTH);
 		// Start the threads
 		for (Thread t : theThreads){
 			t.start();
@@ -86,15 +76,18 @@ public class Controller extends JFrame{
 
 	private class Instructions extends JPanel{
 		private Instructions(){
-			this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-			this.add(new JLabel("INSTRUCTIONS", (int) JLabel.LEFT_ALIGNMENT));
-
+			Dimension area = new Dimension(175 * theCars.size(),150);
 			JTextArea text = new JTextArea();
-			JScrollPane scroll = new JScrollPane(text);
-			scroll.setPreferredSize(dimension);
-			this.add(scroll);
+			text.setPreferredSize(area);
+			text.setLineWrap(true);
+			text.setWrapStyleWord(true);
+			text.setFocusable(false);
 
+			JScrollPane scroll = new JScrollPane(text);
+			scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+			scroll.setPreferredSize(area);
+			
+			this.add(scroll);
 		}
 	}
 	
@@ -147,7 +140,7 @@ public class Controller extends JFrame{
 		
 	}
 	
-	public static void setToolTipRecursively(JComponent c, String text) {
+	private static void setToolTipRecursively(JComponent c, String text) {
 
 	    c.setToolTipText(text);
 

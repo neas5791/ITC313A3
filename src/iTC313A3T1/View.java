@@ -195,19 +195,19 @@ public class View extends JFrame{
 		name.setToolTipText("Enter the students name");
 		assignment1.setEditable(true);
 		assignment1.setText("");
-		assignment1.setToolTipText("Enter the reuslt value");
+		assignment1.setToolTipText("Enter the result value");
 		assignment2.setEditable(true);
 		assignment2.setText("");
-		assignment2.setToolTipText("Enter the reuslt value");
+		assignment2.setToolTipText("Enter the result value");
 		assignment3.setEditable(true);
 		assignment3.setText("");
-		assignment3.setToolTipText("Enter the reuslt value");
+		assignment3.setToolTipText("Enter the result value");
 		exam.setEditable(true);
 		exam.setText("");
-		exam.setToolTipText("Enter the reuslt value");
+		exam.setToolTipText("Enter the result value");
 		execute.setEnabled(true);
 		execute.setText("Search");
-		execute.setToolTipText("Get reults of search criteria");
+		execute.setToolTipText("Get results of search criteria");
 		execute.setActionCommand("SEARCH");
 		
 		if(studentID.getItemCount()>0)
